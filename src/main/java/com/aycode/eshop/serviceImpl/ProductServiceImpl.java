@@ -1,6 +1,7 @@
 package com.aycode.eshop.serviceImpl;
 
 import com.aycode.eshop.dto.ProductDto;
+import com.aycode.eshop.mapper.ProductMapper;
 import com.aycode.eshop.model.Categorie;
 import com.aycode.eshop.model.Produit;
 import com.aycode.eshop.repositroy.CategoryRepository;
@@ -14,10 +15,14 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
     ProductRepository productRepository;
-    @Autowired
     CategoryRepository categoryRepository;
+
+    public ProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository) {
+        this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
+    }
+
     @Override
     public List<Produit> getProductList() {
         return productRepository.findAllByOrderByPrixAsc();
@@ -41,6 +46,34 @@ public class ProductServiceImpl implements ProductService {
         produit.setLigneCommandes(null);
 
         return productRepository.save(produit);
+    }
+
+    @Override
+    public Produit showEditPage(Long id) {
+        return productRepository.findById(id).get();
+    }
+
+    @Override
+    public Produit updateProduct(Long id, ProductDto productDto) {
+        Produit product = productRepository.findById(id).get();
+        Categorie categorie = categoryRepository.findCategorieById(productDto.getCategorieId());
+
+        product.setDesignation(productDto.getDesignation());
+        product.setDescription(productDto.getDescription());
+        product.setQte(productDto.getQte());
+        product.setPrix(productDto.getPrix());
+        product.setCategorie(categorie);
+        product.setLigneCommandes(null);
+
+
+        return productRepository.save(product);
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
+        Produit product = productRepository.findById(id).get();
+        productRepository.delete(product);
+
     }
 
 

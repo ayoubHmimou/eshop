@@ -1,15 +1,14 @@
 package com.aycode.eshop.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 
 @Entity
+@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue(value = "USER")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Utilisateur implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -17,6 +16,7 @@ public class Utilisateur implements Serializable {
     private String password;
     private String nom;
     private String prenom;
+    @Column(insertable = false ,updatable = false)
     private String role;
 
     public Utilisateur(String email, String password, String nom, String prenom, String role) {

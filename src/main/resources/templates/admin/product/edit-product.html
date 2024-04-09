@@ -1,10 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>E-Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto rounded border p-4 m-4">
+            <h2 class="text-center mb-5">Edit Product</h2>
 
+            <form method="post" th:object="${productDto}">
+
+                <div class="row mb-3">
+                    <label for="productId" class="col-sm-4 col-form-label">designation</label>
+                    <div class="col-sm-8">
+                        <input readonly id="productId" class="form-control-plaintext" th:value="${product.id}">
+                </div>
+
+
+                <div class="row mb-3">
+                    <label for="designation" class="col-sm-4 col-form-label">designation</label>
+                    <div class="col-sm-8">
+                        <input id="designation" class="form-control" th:field="${productDto.designation}">
+                        <p th:if="${#fields.hasErrors('designation')}" th:errorclass="text-danger"
+                           th:errors="${productDto.designation}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="description" class="col-sm-4 col-form-label">description</label>
+                    <div class="col-sm-8">
+                        <textarea id="description" class="form-control" th:field="${productDto.description}"></textarea>
+                        <p th:if="${#fields.hasErrors('description')}" th:errorclass="text-danger"
+                           th:errors="${productDto.description}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="qte" class="col-sm-4 col-form-label">Quantite</label>
+                    <div class="col-sm-8">
+                        <input id="qte" type="number" class="form-control" th:field="${productDto.qte}">
+                        <p th:if="${#fields.hasErrors('qte')}" th:errorclass="text-danger"
+                           th:errors="${productDto.qte}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="prix" class="col-sm-4 col-form-label">Prix</label>
+                    <div class="col-sm-8">
+                        <input id="prix" class="form-control" type="number" step="0.01" min="0" th:field="${productDto.prix}">
+                        <p th:if="${#fields.hasErrors('prix')}" th:errorclass="text-danger"
+                           th:errors="${productDto.prix}"></p>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="categorie" class="col-sm-8">Categorie</label>
+                    <select id="categorie" class="form-select" th:field="${productDto.categorieId}">
+                        <option value=2>Ordinateur Portable</option>
+                        <option value=3>Oridnateur Buereau</option>
+                    </select>
+                    <p th:if="${#fields.hasErrors('categorieId')}" th:errorclass="text-danger"
+                       th:errors="${productDto.categorieId}"></p>
+                </div>
+
+                <div class="row">
+                    <div class="offset-sm-4 col-sm-4 d-grid">
+                        <button type="submit" class="bt btn btn-primary">Submit</button>
+                    </div>
+                    <div class="col-sm-4 d-grid">
+                        <a class="btn btn-outline-primary" href="/products" role="button">Cancel</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

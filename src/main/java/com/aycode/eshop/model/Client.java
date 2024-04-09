@@ -1,5 +1,6 @@
 package com.aycode.eshop.model;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@DiscriminatorValue(value = "CLIENT")
 public class Client extends Utilisateur implements Serializable{
 
     private Date dateNaissance;

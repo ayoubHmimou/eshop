@@ -9,6 +9,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,7 +33,9 @@ public class SecurityConfiguration {
                                 .requestMatchers("/client/**").hasRole("CLIENT")
                                 .requestMatchers("/").permitAll()
                 )
+                .oauth2Login(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults());
+        httpSecurity.csrf(AbstractHttpConfigurer::disable);
 
         return httpSecurity.build();
     }
